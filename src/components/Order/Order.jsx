@@ -1,34 +1,43 @@
 import React, { useState } from 'react';
 import Cart from '../Cart/Cart';
-import { useLoaderData } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 import ReviewItem from '../ReviewItem/ReviewItem';
-import { removeFromDb } from '../../utilities/fakedb';
+import { deleteShoppingCart, removeFromDb } from '../../utilities/fakedb';
 
 const Order = () => {
-    const carted=useLoaderData();
+    const carted = useLoaderData();
     // console.log(carted);
-    const [cart,setCart]=useState(carted);
+    const [cart, setCart] = useState(carted);
 
-    const deleteButton=(id)=>{
+    const deleteButton = (id) => {
         // console.log(id);
-        const remain=cart.filter(p=>p.id !== id);
+        const remain = cart.filter(p => p.id !== id);
         setCart(remain);
         removeFromDb(id);
     }
+
+    const clearCart = () => {
+        setCart([]);
+        deleteShoppingCart();
+    }
     return (
-        <div className='shop-container'>
-            <div className="">
+        <div className='flex justify-between gap-20 text-white m-8 '>
+            <div className='m-8 w-full p-4'>
                 <p>{cart.length}</p>
                 {
-                    cart.map(product=><ReviewItem 
-                    key={product.id}
-                    product={product}
-                    deleteButton={deleteButton}
+                    cart.map(product => <ReviewItem
+                        key={product.id}
+                        product={product}
+                        deleteButton={deleteButton}
                     ></ReviewItem>)
                 }
             </div>
-            <div className="cart-container">
-                <Cart cart={carted}></Cart>
+            <div className=' bg-gray-400 p-10 shadow-lg shadow-gray-950 '>
+                <Cart cart={carted} clearCart={clearCart} >
+                    <Link to="/checkout" className='p-4 bg-green-500 rounded-md text-2xl font bold text-white'>
+                        <button>Order Checkout</button>
+                    </Link>
+                </Cart>
             </div>
         </div>
     );

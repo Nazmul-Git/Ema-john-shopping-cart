@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { addToDb, getShoppingCart } from '../../utilities/fakedb';
+import { addToDb, deleteShoppingCart, getShoppingCart } from '../../utilities/fakedb';
 import Cart from '../Cart/Cart';
 import Product from '../Product/Product';
-import './Shop.css';
+import { Link } from 'react-router-dom';
 
 const Shop = () => {
     const [products, setProducts] = useState([]);
@@ -55,9 +55,14 @@ const Shop = () => {
         addToDb(product.id)
     }
 
+    const clearCart=()=>{
+        setCart([]);
+        deleteShoppingCart();
+    }
+
     return (
-        <div className='shop-container'>
-            <div className="products-container">
+        <div className='flex gap-4 relative'>
+            <div className='md:grid grid-cols-3 gap-8 m-8'>
                 {
                     products.map(product => <Product
                         key={product.id}
@@ -66,8 +71,12 @@ const Shop = () => {
                     ></Product>)
                 }
             </div>
-            <div className="cart-container">
-                <Cart cart={cart}></Cart>
+            <div className='bg-gray-400 shadow-lg shadow-gray-950  p-20 m-8'>
+                <Cart cart={cart} clearCart={clearCart}>
+                    <Link to="/orders" className='p-4 bg-green-500 rounded-md mt-8 text-2xl font bold text-white mb-6'>
+                    <button >Review Order</button>
+                    </Link>
+                </Cart>
             </div>
         </div>
     );
