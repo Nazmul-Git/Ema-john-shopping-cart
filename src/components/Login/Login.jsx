@@ -54,15 +54,15 @@ const Login = () => {
                                     </label>
                                     <input type="password" name='password' required placeholder="password" className="input input-bordered" />
                                     <label className="label">
-                                        <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
+                                        <Link to='/sign-up' className="label-text-alt link link-hover">Forgot password?</Link>
                                     </label>
                                 </div>
                                 <div className="form-control mt-6">
                                     <button className="btn btn-primary">Login</button>
                                 </div>
                             </form>
-                            <Link to='/home'>
-                               <button onClick={handleGoogleSignIn}>Sign in with google.</button>
+                            <Link to='/'>
+                               <button onClick={handleGoogleSignIn} className="btn btn-xs m-6 hover:text-blue-600">Sign in with google.</button>
                                       
                             </Link>
                         </div>

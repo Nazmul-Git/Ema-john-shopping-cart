@@ -59,7 +59,7 @@ const SignUp = () => {
                                 </div>
                             </form>
                         </div>
-                        {/* <p className='text-center'>Please..login with your  <button onClick={googleSignIn} className='text-blue-500  font-extrabold font-serif'>Gmail</button></p> */}
+                        
                     </div>
                 </div>
             </div>
