@@ -29,7 +29,9 @@ const Order = () => {
                         key={product.id}
                         product={product}
                         deleteButton={deleteButton}
-                    ></ReviewItem>)
+                    >
+                        
+                    </ReviewItem>)
                 }
             </div>
             <div className=' bg-gray-400 p-10 shadow-lg shadow-gray-950 '>

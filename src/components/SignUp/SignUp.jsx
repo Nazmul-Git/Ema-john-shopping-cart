@@ -1,32 +1,23 @@
-import { useContext } from "react";
-import { AuthContext } from "../../AuthProvider";
-import { Link } from "react-router-dom";
+import React, { useContext } from 'react';
+import { AuthContext } from '../../AuthProvider';
+import { Link } from 'react-router-dom';
 
-const Login = () => {
-    const { user,logInUser,googleSignIn}=useContext(AuthContext)
+const SignUp = () => {
+    const {user, createUser}=useContext(AuthContext)
 
-    const loggedUser=(e)=>{
+    const registerUser=(e)=>{
         e.preventDefault();
         const form= e.target;
-        const email= form.email.value;
-        const pass= form.password.value;
-        console.log(email, pass);
+        const name=form.name.value;
+        const email=form.email.value;
+        const pass=form.password.value;
+        console.log(name, email, pass);
 
-        logInUser(email, pass)
+        createUser(email, pass)
         .then(result=>{
-            const loggedUser= result.user;
-            console.log(loggedUser);
-        })
-        .catch(error=>{
-            console.error(error.message);
-        })
-    }
-
-    const handleGoogleSignIn=()=>{
-        googleSignIn()
-        .then(result=>{
-            const loggedUser=result.user;
-            console.log(logInUser);
+            const newUser=result.user;
+            console.log(newUser);
+            form.reset();
         })
         .catch(error=>{
             console.error(error.message);
@@ -38,10 +29,16 @@ const Login = () => {
                 <div className="hero min-h-screen bg-base-200">
                     <div className="hero-content flex-col ">
                         <div className="text-center ">
-                            <h1 className="text-5xl font-bold">Login now!</h1>
+                            <h1 className="text-5xl font-bold">Register now!</h1>
                         </div>
                         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-                            <form onSubmit={loggedUser} className="card-body">
+                            <form onSubmit={registerUser} className="card-body">
+                                <div className="form-control">
+                                    <label className="label">
+                                        <span className="label-text">username</span>
+                                    </label>
+                                    <input type="text" name='name' required placeholder="username" className="input input-bordered" />
+                                </div>
                                 <div className="form-control">
                                     <label className="label">
                                         <span className="label-text">Email</span>
@@ -54,33 +51,20 @@ const Login = () => {
                                     </label>
                                     <input type="password" name='password' required placeholder="password" className="input input-bordered" />
                                     <label className="label">
-                                        <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
+                                        <Link to='/login' className="label-text-alt link link-hover">Already User? Please login</Link>
                                     </label>
                                 </div>
                                 <div className="form-control mt-6">
-                                    <button className="btn btn-primary">Login</button>
+                                    <button className="btn btn-primary">Sign up</button>
                                 </div>
                             </form>
-                            <Link to='/home'>
-                               <button onClick={handleGoogleSignIn}>Sign in with google.</button>
-                                      
-                            </Link>
                         </div>
+                        {/* <p className='text-center'>Please..login with your  <button onClick={googleSignIn} className='text-blue-500  font-extrabold font-serif'>Gmail</button></p> */}
                     </div>
                 </div>
             </div>
-
-            {/* {
-                user && <div className=' flex flex-1 justify-center items-center gap-4 mt-28'>
-                    <img src={user.photoURL} alt="" />
-                    <div>
-                        <h2> {user.displayName} </h2>
-                        <h2> {user.email} </h2>
-                    </div>
-                </div>
-            } */}
-        </div>
+        </div>    
     );
 };
 
-export default Login;
+export default SignUp;
