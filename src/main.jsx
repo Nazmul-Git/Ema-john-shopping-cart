@@ -15,12 +15,17 @@ import Checkout from './components/Checkout/Checkout';
 import SignUp from './components/SignUp/SignUp';
 import AuthProvider from './AuthProvider';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+import FirstPage from './components/FirstPage/FirstPage';
 
 const router=createBrowserRouter([
   {
     path:'/',
     element:<Home></Home>,
     children:[
+      {
+        path:'/',
+        element:<FirstPage></FirstPage>
+      },
       {
         path:'/shop',
         element: <PrivateRoute><Shop></Shop></PrivateRoute>,

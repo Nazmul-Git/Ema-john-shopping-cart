@@ -33,7 +33,7 @@ const Cart = ({ cart, clearCart,children }) => {    // here children is a props 
             <p>Shipping: ${totalShipping}</p>
             <p>Tax: ${tax.toFixed(2)}</p>
             <h6>Grand Total: ${grandTotal.toFixed(2)} </h6>
-            <button onClick={clearCart} className='p-4 bg-red-500 rounded-md mt-8 text-2xl font bold text-white mb-6'>
+            <button onClick={clearCart} className='p-4 bg-red-500 rounded-md mt-8 text-2xl font bold text-white mb-6 mr-6'>
                 <span className='mr-4'>Clear Cart</span>
                 <FontAwesomeIcon icon={faTrashAlt}></FontAwesomeIcon>
             </button>
