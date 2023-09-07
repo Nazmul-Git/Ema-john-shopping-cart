@@ -1,9 +1,10 @@
 import { useContext } from "react";
 import { AuthContext } from "../../AuthProvider";
 import { Link } from "react-router-dom";
+import image from '../../images/bg-img.jpg'
 
 const Login = () => {
-    const { user,logInUser,googleSignIn}=useContext(AuthContext)
+    const { user,logInUser,googleSignIn}=useContext(AuthContext);
 
     const loggedUser=(e)=>{
         e.preventDefault();
@@ -33,12 +34,14 @@ const Login = () => {
         })
     }
     return (
-        <div className='mt-48 ml-auto'>
+        <div>
+            <img src={image} alt="" className="relative"/>
+            
             <div>
                 <div className="hero min-h-screen bg-base-200">
-                    <div className="hero-content flex-col ">
-                        <div className="text-center ">
-                            <h1 className="text-5xl font-bold">Login now!</h1>
+                    <div className="hero-content flex-col absolute ">
+                        <div className="text-center">
+                            <h1 className="text-5xl font-bold text-blue-600">Login now!</h1>
                         </div>
                         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                             <form onSubmit={loggedUser} className="card-body">
@@ -61,7 +64,7 @@ const Login = () => {
                                     <button className="btn btn-primary">Login</button>
                                 </div>
                             </form>
-                            <Link to='/'>
+                            <Link to='/' className="text-center">
                                <button onClick={handleGoogleSignIn} className="btn btn-xs m-6 hover:text-blue-600">Sign in with google.</button>
                                       
                             </Link>

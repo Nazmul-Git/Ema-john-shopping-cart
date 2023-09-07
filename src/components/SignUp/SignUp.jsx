@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../../AuthProvider';
 import { Link } from 'react-router-dom';
+import image from '../../images/bg-img.jpg'
 
 const SignUp = () => {
     const {user, createUser}=useContext(AuthContext)
@@ -13,6 +14,20 @@ const SignUp = () => {
         const pass=form.password.value;
         console.log(name, email, pass);
 
+        //validation pass
+        if(!/(?=.*[A-Z])/.test(pass)){
+            setError('Please..at list one uppercase latter !');
+            return;
+        }
+        else if(!/(?=.{8,})/.test(pass)){
+            setError('Password should be 8 character or long !');
+            return;
+        }
+        else if(!/(?=.*[!@#$&*])/.test(pass)){
+            setError('Please add a special character.');
+            return;
+        }
+
         createUser(email, pass)
         .then(result=>{
             const newUser=result.user;
@@ -24,12 +39,13 @@ const SignUp = () => {
         })
     }
     return (
-        <div className='mt-48 ml-auto'>
+        <div>
+            <img src={image} alt="" className="relative"/>
             <div>
                 <div className="hero min-h-screen bg-base-200">
-                    <div className="hero-content flex-col ">
+                    <div className="hero-content flex-col absolute ">
                         <div className="text-center ">
-                            <h1 className="text-5xl font-bold">Register now!</h1>
+                            <h1 className="text-5xl font-bold text-blue-600">Register now!</h1>
                         </div>
                         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                             <form onSubmit={registerUser} className="card-body">

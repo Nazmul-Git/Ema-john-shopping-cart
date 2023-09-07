@@ -27,7 +27,7 @@ const Cart = ({ cart, clearCart,children }) => {    // here children is a props 
 
     return (
         <div className='text-1xl font-semibold text-blue-800 sticky top-20'>
-            <h4 className='font-bold text-2xl p-3'>Order Summary</h4>
+            <h4 className='font-bold text-4xl mb-10 p-3'>Order Summary</h4>
             <p>Selected Items: {quantity}</p>
             <p>Total Price: ${totalPrice}</p>
             <p>Shipping: ${totalShipping}</p>
