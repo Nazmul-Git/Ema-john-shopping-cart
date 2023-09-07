@@ -1,21 +1,31 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { AuthContext } from '../../AuthProvider';
 import { Link } from 'react-router-dom';
 import image from '../../images/bg-img.jpg'
+import { sendEmailVerification } from 'firebase/auth';
+
 
 const SignUp = () => {
-    const {user, createUser}=useContext(AuthContext)
+    const {user, createUser}= useContext(AuthContext)
+    const [error, setError]= useState('')
 
     const registerUser=(e)=>{
         e.preventDefault();
+        
         const form= e.target;
         const name=form.name.value;
         const email=form.email.value;
         const pass=form.password.value;
-        console.log(name, email, pass);
+        const confirmPass=form.confirm.value;
+        console.log(name, email, pass,confirmPass);
+
+        if(pass !== confirmPass){
+            setError('Password did not match.')
+            return;
+        }
 
         //validation pass
-        if(!/(?=.*[A-Z])/.test(pass)){
+        else if(!/(?=.*[A-Z])/.test(pass)){
             setError('Please..at list one uppercase latter !');
             return;
         }
@@ -27,23 +37,37 @@ const SignUp = () => {
             setError('Please add a special character.');
             return;
         }
+        
 
         createUser(email, pass)
         .then(result=>{
             const newUser=result.user;
             console.log(newUser);
+            emailVerification(newUser)
+            setError('')
             form.reset();
+            
         })
         .catch(error=>{
             console.error(error.message);
         })
     }
+
+    const emailVerification=(loggedUser)=>{
+        sendEmailVerification(loggedUser)
+        .then(result=>{
+            console.log(result);
+            alert("Please, verified your email..")
+        })
+    }
+
+    
     return (
         <div>
             <img src={image} alt="" className="relative"/>
             <div>
                 <div className="hero min-h-screen bg-base-200">
-                    <div className="hero-content flex-col absolute ">
+                    <div className="hero-content flex-col absolute">
                         <div className="text-center ">
                             <h1 className="text-5xl font-bold text-blue-600">Register now!</h1>
                         </div>
@@ -65,7 +89,13 @@ const SignUp = () => {
                                     <label className="label">
                                         <span className="label-text">Password</span>
                                     </label>
-                                    <input type="password" name='password' required placeholder="password" className="input input-bordered" />
+                                    <input type="Password" name='password' required placeholder="Password" className="input input-bordered" />
+                                </div>
+                                <div className="form-control">
+                                    <label className="label">
+                                        <span className="label-text">Confirm Password</span>
+                                    </label>
+                                    <input type="password" name='confirm' required placeholder="Confirm Password" className="input input-bordered" />
                                     <label className="label">
                                         <Link to='/login' className="label-text-alt link link-hover">Already User? Please login</Link>
                                     </label>
@@ -75,6 +105,7 @@ const SignUp = () => {
                                 </div>
                             </form>
                         </div>
+                        <p className=' text-red-700 font-serif font-bold text-2xl'> {error}</p>
                         
                     </div>
                 </div>
