@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 import logo from '../../images/Logo.svg';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../AuthProvider';
+import ActiveLink from '../ActiveLink/ActiveLink';
 
 const Header = () => {
     const { user, signOutUser } = useContext(AuthContext);
@@ -23,10 +24,10 @@ const Header = () => {
             <div className='text-2xl font-bold flex justify-between gap-6 font-serif relative text-black'>
 
                 <div className='md:flex gap-20 '>
-                    <Link to="/">Home</Link>
-                    <Link to="/shop">Shop</Link>
-                    <Link to="/orders">Orders</Link>
-                    <Link to="/inventory">Inventory</Link>
+                    <ActiveLink to="/">Home</ActiveLink>
+                    <ActiveLink to="/shop">Shop</ActiveLink>
+                    <ActiveLink to="/orders">Orders</ActiveLink>
+                    <ActiveLink to="/inventory">Inventory</ActiveLink>
                 </div>
 
 
@@ -38,8 +39,8 @@ const Header = () => {
                         </> :
 
                             <div className='flex gap-6  '>
-                                <Link to='/login'>Login</Link>
-                                <Link to="/sign-up">Sign up</Link>
+                                <ActiveLink to='/login'>Login</ActiveLink>
+                                <ActiveLink to="/sign-up">Sign up</ActiveLink>
                             </div>
 
                     }

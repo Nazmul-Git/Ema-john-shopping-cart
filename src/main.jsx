@@ -28,7 +28,7 @@ const router=createBrowserRouter([
       },
       {
         path:'/shop',
-        element: <PrivateRoute><Shop></Shop></PrivateRoute>,
+        element: <Shop></Shop>,
       },
       {
         path:'/orders',
@@ -37,11 +37,11 @@ const router=createBrowserRouter([
       },
       {
         path:'/checkout',
-        element:<Checkout></Checkout>
+        element: <PrivateRoute><Checkout></Checkout></PrivateRoute>
       },
       {
         path:'/inventory',
-        element:<Inventory></Inventory>
+        element: <PrivateRoute><Inventory></Inventory></PrivateRoute>
       },
       {
         path:'/login',

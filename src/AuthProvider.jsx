@@ -11,14 +11,17 @@ const AuthProvider = ({children}) => {
     const [loading, setLoading]= useState(true);
 
     const createUser=(email,pass)=>{
+        setLoading(true);
         return createUserWithEmailAndPassword(auth,email,pass)
         
     }
     const logInUser=(email, pass)=>{
-        return signInWithEmailAndPassword(email, pass)
+        setLoading(true);
+        return signInWithEmailAndPassword(auth, email, pass)
     }
 
     const googleSignIn=()=>{
+        setLoading(true);
         return signInWithPopup(auth,provider)
     }
 
@@ -26,7 +29,7 @@ const AuthProvider = ({children}) => {
         return signOut(auth)
     }
     
-
+// observe user who load our site. thats why useEffect() 
     useEffect(()=>{
         const unsubscribe= onAuthStateChanged(auth, currentUser=>{
             console.log(currentUser);
